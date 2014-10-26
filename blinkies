@@ -79,7 +79,7 @@ void loop()
   //Give them time to pull their finger off the button
   delay(400);
   
-  solid2();
+  copLights();
   //Give them time to pull their finger off the button
   delay(400);
   
@@ -396,7 +396,7 @@ void rainbow()
 }
 
 //Cop Lights
-void solid2()
+void copLights()
 {
   //list of colors
   unsigned long colors[] = {0xFFFFFF, 0xFF0000, 0x0000FF};
