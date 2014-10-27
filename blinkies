@@ -75,6 +75,9 @@ void loop()
   //Give them time to pull their finger off the button
   delay(400);
   
+  crossRedBlue();
+  delay(400);
+  
   testZane1();
   //Give them time to pull their finger off the button
   delay(400);
@@ -1443,7 +1446,7 @@ void testZane1 ()
 			color = colors[12];
                         patternLoop = 0;
 		}
-		//coloring odd numbers.  Yes, I am positive their is a better way to do this.
+		//coloring odd numbers.  I am pretty sure there is a better way to do this.
 		
 		//Update the value for this LED
 		colorLED(ledPins0, color);
@@ -1532,5 +1535,112 @@ void testZane1 ()
                     return;
 		}
 	}
+  }
+}
+void crossRedBlue (){
+  unsigned long red = 0xFF0000; //red
+  unsigned long blue = 0x0000FF; //blue
+
+  //2 LED pin values for each end
+  int ledPin1[3];
+  int ledPin2[3];
+  
+   
+  
+  //Infinite loop runs until return is called
+  while(true)
+  {
+    //Specify the pins for the current LED - There is likely a better way to do this
+    ledPin1[0] = 0;
+    ledPin1[1] = 1;
+    ledPin1[2] = 2;
+    ledPin2[0] = 28;
+    ledPin2[1] = 29;
+    ledPin2[2] = 30;
+    
+    for(int pinLoop = 0; pinLoop <= 10; pinLoop++){
+      //clear programming
+      Tlc.clear();
+      //color the LEDs
+      colorLED(ledPin1, red);
+      colorLED(ledPin2, blue);
+      //update LEDs
+      Tlc.update();
+      //let the users see the pretty colors
+      delay(100);
+       //Check for button press
+        if (digitalRead(funcButton) == HIGH)
+        {
+          //Clear any programming currently set for LEDs
+          Tlc.clear();
+  
+          //Now go back to loop() function
+          return;
+        }
+      //check for and skip pin 15
+      if (ledPin1[0] == 15 || ledPin1[1] == 15 || ledPin1[2] == 15){
+        ledPin1[0] += 1;
+        ledPin1[1] += 1;
+        ledPin1[2] += 1;
+      }else{
+        //Move ledPin2 to the previous LED
+        ledPin1[0] += 3;
+        ledPin1[1] += 3;
+        ledPin1[2] += 3;
+      }
+      //check for and skip pin 15
+      if(ledPin2[0] == 15 || ledPin2[1] == 15 || ledPin2[2] == 15){
+        ledPin2[0] -= 1;
+        ledPin2[1] -= 1;
+        ledPin2[2] -= 1;
+      }else{
+        //Move ledPin1 to the next LED
+        ledPin2[0] -= 3;
+        ledPin2[1] -= 3;
+        ledPin2[2] -= 3;
+      }
+    }
+    for(int pinLoop = 10; pinLoop >= 0; pinLoop--){
+      //clear programming
+      Tlc.clear();
+      //color the LEDs
+      colorLED(ledPin1, red);
+      colorLED(ledPin2, blue);
+      //update LEDs
+      Tlc.update();
+      //let the users see the pretty colors
+      delay(100);
+       //Check for button press
+        if (digitalRead(funcButton) == HIGH)
+        {
+          //Clear any programming currently set for LEDs
+          Tlc.clear();
+  
+          //Now go back to loop() function
+          return;
+        }
+      //check for and skip pin 15
+      if (ledPin1[0] == 16 || ledPin1[1] == 16 || ledPin1[2] == 16){
+        ledPin1[0] -= 4;
+        ledPin1[1] -= 4;
+        ledPin1[2] -= 4;
+      }else{
+        //Move ledPin2 to the previous LED
+        ledPin1[0] -= 3;
+        ledPin1[1] -= 3;
+        ledPin1[2] -= 3;
+      }
+      //check for and skip pin 15
+      if(ledPin2[0] == 14 || ledPin2[1] == 14 || ledPin2[2] == 14){
+        ledPin2[0] += 4;
+        ledPin2[1] += 4;
+        ledPin2[2] += 4;
+      }else{
+        //Move ledPin1 to the next LED
+        ledPin2[0] += 3;
+        ledPin2[1] += 3;
+        ledPin2[2] += 3;
+      }
+    }
   }
 }
