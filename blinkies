@@ -75,6 +75,10 @@ void loop()
   //Give them time to pull their finger off the button
   delay(400);
   
+  solid();
+  //Give them time to pull their finger off the button
+  delay(400);
+  
   crossRedBlue();
   delay(400);
   
@@ -122,9 +126,7 @@ void loop()
   //Give them time to pull their finger off the button
   delay(400);
   
-  solid();
-  //Give them time to pull their finger off the button
-  delay(400);
+  
   
 }
 
@@ -198,7 +200,7 @@ void solid()
   //Infinite loop runs until return is called
   while(true)
   {
-
+    color = colors[random(11)];
     for(int i = 0; i < 30; i += 3)
     {
       //We need to skip pin 16, there is nothing there
@@ -208,8 +210,8 @@ void solid()
       }
       
       //choose color from the list randomly      
-      color = colors[random(11)];
-      
+      //color = colors[random(11)];
+
       //Specify the pins for the current LED - There is likely a better way to do this
       ledPins[0] = i;
       ledPins[1] = i+1;
@@ -217,7 +219,6 @@ void solid()
 
       //Light up each of the LEDs accordingly      
       colorLED(ledPins, color);
-      
     }
   
     //Tell drivers to output newly stored values
@@ -242,7 +243,7 @@ void solid()
     }
   } 
   // Could probably skip this delay to make the program more responsive....
-  delay(150);
+  delay(50);
 } 
 
 //Scan LEDs in order with pre-defined color pattern - Rainbow by Maxwell
